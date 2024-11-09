@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: ms-replicaset
+  namespace: default
+spec:
+  replicas: 5
+  selector: 
+    matchExpressions:
+    - key: ms
+      operator: In
+      values: 
+      - replica
+  template:
+    metadata:
+      labels:
+        ms: replica
+      name: ms-pod
+      namespace: default
+    spec:  
+      containers:
+      - image: nginx:perl
+        name: nginx-ct
+        ports:
+        - containerPort: 80
+  
+  
+
+

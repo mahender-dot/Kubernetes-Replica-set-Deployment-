@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-deployment
+  namespace: default
+spec:
+  replicas: 4
+  selector: 
+    matchExpressions:
+    - key: ms
+      operator: In
+      values: 
+      - deploy
+  template:
+    metadata:
+      labels:
+        ms: deploy
+      name: ms-pod
+      namespace: default
+    spec:  
+      containers:
+      - image: nginx:bookworm-perl
+        name: nginx-ct
+        ports:
+        - containerPort: 80
